@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { toast } from 'react-toastify';
+import { Mosaic } from "react-loading-indicators";
 import dummy from "../assets/dummy.png"
 
 export const Hero = () => {
@@ -7,6 +8,7 @@ export const Hero = () => {
   let [promptdata, setPrompt] = useState('');
   const [genImage, setImage] = useState('');
   const [generating, setGenerating] = useState(false);
+  const [isImageExist, setImageExist] = useState(true);
 
   const generateImage = async (e) => {
     e.preventDefault();
@@ -23,11 +25,11 @@ export const Hero = () => {
           body: JSON.stringify({ prompt: prompt })
         })
         const { photo } = await response.json();
-        photos = photo
         const base64String = btoa(String.fromCharCode(...new Uint8Array(photo.data)));
         setImage(base64String);
         setPhoto(true);
         setGenerating(false);
+        setImageExist(true);
       } catch (err) {
         console.log(err);
       }
@@ -35,6 +37,10 @@ export const Hero = () => {
   }
 
   async function handleCreatePost(e) {
+    if(photos===false){
+      setImageExist(false);
+      return;
+    }
     e.preventDefault();
     try {
       setGenerating(true);
@@ -48,6 +54,8 @@ export const Hero = () => {
       const { status } = await response.json();
       notify()
       setGenerating(false);
+      setPhoto(false);
+      setImageExist(true);
     } catch (err) {
       console.log(err);
     }
@@ -66,9 +74,14 @@ export const Hero = () => {
           <button type="submit" className="rounded-[7px] py-[2%] bg-[#199f93] text-white flex gap-[5px] items-center justify-center font-[600]">Generate Image <span className="material-symbols-outlined">arrow_right_alt</span></button>
         </form>
         <button onClick={handleCreatePost} disabled={generating === true ? "disabled" : ""} className="checkout-button rounded-[7px] py-[2%] bg-[#199f93] text-white flex gap-[5px] items-center justify-center font-[600]">Create Post <span className="material-symbols-outlined">heart_check</span></button>
+        {
+          isImageExist===false?<p className="text-red-500">First generate an image...</p> :""
+        }
       </div>
-      <div className="p-[5%]">
-        <img className="object-center object-cover w-[400px] mx-[auto]" src={photos === true ? `data:image/png;base64,${genImage}` : dummy} alt="Generated Image" />
+      <div className="p-[5%] flex items-center justify-center">
+        {
+          generating === true? <Mosaic size="large" color={["#33CCCC", "#33CC36", "#B8CC33", "#FCCA00"]} />: <img className="object-center object-cover w-[400px] mx-[auto]" src={photos === true ? `data:image/png;base64,${genImage}`: dummy} alt="Generated Image" />
+        }
       </div>
     </div>
   )

@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
 body{
     background-color: #f3f5f7;
 }
@@ -15,11 +21,7 @@ body{
     color: #555;
     cursor: not-allowed;
   }
-*{
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}
+
 .post-img{
     transition: all 100ms ease-in-out;
 }

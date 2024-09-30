@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import LightGallery from 'lightgallery/react';
-import 'lightgallery/css/lightgallery.css';
-import 'lightgallery/css/lg-zoom.css';
-import 'lightgallery/css/lg-thumbnail.css';
-import lgThumbnail from 'lightgallery/plugins/thumbnail';
-import lgZoom from 'lightgallery/plugins/zoom';
+import { Mosaic } from "react-loading-indicators";
 
 export const Homepage = () => {
   const [data, setData] = useState([]);
@@ -18,10 +13,10 @@ export const Homepage = () => {
     fetchData()
   }, [])
   return (
-    <div className='w-[100vw] px-[3%]'>
+    <div className='px-[3%]'>
       <div className="grid md:grid-cols-3 gap-[10px] items-center">
         {
-          data && data.map((ele, index) => (
+          data.length===0? <div className='w-[100vw] h-[100vh] flex items-center justify-center'><Mosaic size="large" color={["#33CCCC", "#33CC36", "#B8CC33", "#FCCA00"]} /></div> : data.map((ele, index) => (
             <div key={index} className='rounded-[10px] cursor-pointer overflow-hidden'>
               <img className='post-img w-full h-auto object-cover' alt={ele.prompt} src={`data:image/png;base64,${ele.photo}`} />
             </div>
