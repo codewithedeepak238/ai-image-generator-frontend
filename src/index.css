@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    background-color: #f3f5f7;
+}
+.logo{
+    font-family: "Dancing Script", cursive;
+    font-weight: 700;
+    font-size: 30px;
+}
+.checkout-button:disabled {
+    background: #199f93;
+    color: #555;
+    cursor: not-allowed;
+  }
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+.post-img{
+    transition: all 100ms ease-in-out;
+}
+.post-img:hover{
+    transform: scale(1.1);
+}
