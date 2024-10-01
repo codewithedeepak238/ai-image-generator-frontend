@@ -17,7 +17,7 @@ export const Hero = () => {
       setPrompt(prompt);
       try {
         setGenerating(true);
-        const response = await fetch('http://localhost:8080/api/dalle', {
+        const response = await fetch('https://ai-image-generator-backend-rl2n.onrender.com/api/dalle', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export const Hero = () => {
     e.preventDefault();
     try {
       setGenerating(true);
-      const response = await fetch('http://localhost:8080/api/dalle/post', {
+      const response = await fetch('https://ai-image-generator-backend-rl2n.onrender.com/api/dalle/post', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -6,7 +6,7 @@ export const Homepage = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("http://localhost:8080/api/all-posts");
+      const response = await fetch("https://ai-image-generator-backend-rl2n.onrender.com/api/all-posts");
       const result = await response.json();
       setData(result.allPosts);
     }
